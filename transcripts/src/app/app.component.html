@@ -1,0 +1,32 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div *ngIf="hide!=true" style="text-align:center">
+  <h1>
+    Welcome to {{ title }}
+  </h1>
+  <img width="300" alt="Ethereum Logo" src="././assets/ethereum.png">
+
+<h2 style="text-align:center">Login To Continue</h2>
+<select  [(ngModel)]="selected-class" (change)="onChange($event.target.value)">
+  <option [ngValue]="undefined"  disabled>Select an option</option>
+  <option value="Student">Student</option>
+  <option value="College">College</option>
+  <option value="Admin">Admin</option>
+</select>
+
+<div *ngIf="logintype=='Student'" style="text-align:center">
+		<select id="collselec" [(ngModel)]="selected-class" (change)="onCollegeChange($event.target.value)">
+       <option [ngValue]="undefined"  disabled>Select College</option>
+       <option *ngFor="let college of CollegesList" [value]="college.ethaddress">{{college.name}}</option>
+    </select>
+    <button (click)="onClick()">Login</button>
+</div>
+
+<div *ngIf="logintype=='College'" style="text-align:center">
+	<button (click)="onClick()">Login</button>
+</div>
+
+<div *ngIf="logintype=='Admin'" style="text-align:center">
+	<button (click)="onClick()">Login</button>
+</div>
+</div>
+<router-outlet></router-outlet>

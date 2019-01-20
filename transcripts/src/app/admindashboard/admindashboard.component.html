@@ -1,0 +1,142 @@
+<!--<div style="text-align:center">
+<h1>
+    Welcome to {{ title }}
+</h1>
+</div>-->
+
+
+
+
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {font-family: Arial;}
+
+/* Style the tab */
+.tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+    background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+    background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+}
+</style>
+<script type="text/javascript">
+function openTab(evt, option) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(option).style.display = "block";
+    evt.currentTarget.className += " active";
+    location.reload();
+}
+</script>
+
+</head>
+<body>
+<div style="text-align:center">
+<h1>
+    Welcome to {{ title }}
+</h1>
+<!--<popup>
+	New College Added! 
+</popup>-->
+</div>
+<h2>Tabs</h2>
+<p>Click on the buttons inside the tabbed menu:</p>
+
+<div class="tab">
+  <button class="tablinks" (click)="openTab($event, 'AddCollege')">Add College</button>
+  <button class="tablinks" (click)="openTab($event, 'AddAdmin')">Add Admin</button>
+  <button class="tablinks" (click)="openTab($event, 'ListofColleges')">List of Colleges</button>
+</div>
+
+<app-alerts></app-alerts>
+
+<div id="AddCollege" class="tabcontent">
+  <h3>Add College</h3>
+  <form [formGroup]="AddCollegeForm" (ngSubmit)="AddCollege()">
+  <div class="form-group">
+    <label for="collegename">College Name:</label>
+      <input class="form-control" formControlName="collegename" id="collegename">
+      <br>
+    <label for="email">Email-ID:</label>
+      <input class="form-control" formControlName="email" id="email" >
+      <br>
+    <label for="ethaddress">Ethereum Address:</label>
+      <input class="form-control" formControlName="ethaddress" id="ethaddress" >
+      <br>
+     <button>Submit</button>
+  </div>
+</form>
+</div>
+
+<div id="AddAdmin" class="tabcontent">
+  <h3>Add Admin</h3>
+  <form [formGroup]="AddAdminForm" (ngSubmit)="AddAdmin()">
+   <div class="form-group">
+    <label for="adminname">Admin Name:</label>
+      <input class="form-control" formControlName="adminname" id="adminname">
+      <br>
+    <!--<label for="adminemail">Email-ID:</label>
+      <input class="form-control" formControlName="adminemail" id="adminemail" >
+      <br>-->
+    <label for="adminethaddress">Ethereum Address:</label>
+      <input class="form-control" formControlName="adminethaddress" id="adminethaddress" >
+      <br>
+     <button>Submit</button>
+   </div>
+</form>
+</div>
+
+<div id="ListofColleges" class="tabcontent">	
+  <h3>List of Colleges</h3>
+  
+ <ag-grid-angular 
+    style="width: 1200px; height: 600px;" 
+    class="ag-theme-balham"
+    [enableSorting]="true"
+    [enableFilter]="true"
+    [rowData]="rowData | async" 
+    [columnDefs]="columnDefs"
+    >
+</ag-grid-angular>
+ 
+</div>
+     
+</body>
+

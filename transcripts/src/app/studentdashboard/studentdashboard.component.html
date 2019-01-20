@@ -1,0 +1,121 @@
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {font-family: Arial;}
+
+/* Style the tab */
+.tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+    background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+    background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+}
+</style>
+<script type="text/javascript">
+function openTab(evt, option) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(option).style.display = "block";
+    evt.currentTarget.className += " active";
+    location.reload();
+}
+</script>
+
+</head>
+<body>
+<div style="text-align:center">
+<h1>
+    Welcome to {{ title }}
+</h1>
+<!--<popup>
+    New College Added! 
+</popup>-->
+</div>
+<h2>Tabs</h2>
+<p>Click on the buttons inside the tabbed menu:</p>
+
+<div class="tab">
+  <button class="tablinks" (click)="openTab($event, 'RequestTranscript')">Request Transcript</button>
+  <button class="tablinks" (click)="openTab($event, 'ReceivedTranscript')">Received Transcripts</button>
+</div>
+
+<app-alerts></app-alerts>
+
+<div id="RequestTranscript" class="tabcontent">
+  <h3>Request Transcript</h3>
+<form [formGroup]="RequestTranscriptForm" (ngSubmit)="RequestTranscript()">
+  <div class="form-group">
+    <label for="college">College Name:</label>
+      <!--<input class="form-control" formControlName="college" id="college">-->
+      <select class="form-control" formControlName="college" id="college" [(ngModel)]="selected-class" (change)="SelectCollege($event.target.value)">
+       <option [ngValue]="undefined"  disabled>Select College to Apply</option>
+       <option *ngFor="let college of CollegesList" [value]="college.ethaddress">{{college.name}}</option>
+      </select>
+      <br>
+    <label for="name">College Id:</label>
+      <input class="form-control" formControlName="collid" id="collid">
+      <br>
+    <label for="branch">Branch:</label>
+      <input class="form-control" formControlName="branch" id="branch">
+      <br>
+    <label for="email">Email-ID:</label>
+      <input class="form-control" formControlName="email" id="email" >
+      <br>
+     <button>Submit</button>
+  </div>
+</form>
+</div>
+
+<div id="ReceivedTranscript" class="tabcontent">
+  <h3>Received Transcripts</h3>
+  <ag-grid-angular 
+    style="width: 1200px; height: 600px;" 
+    class="ag-theme-balham"
+    [enableSorting]="true"
+    [enableFilter]="true"
+    [rowData]="ReqrowData | async" 
+    [columnDefs]="ReqColDefs"
+    [context]="context"
+    [frameworkComponents]="frameworkComponents"
+    (gridReady)="onGridReady($event)"
+    >
+  </ag-grid-angular>
+</div>
+</body>
+
