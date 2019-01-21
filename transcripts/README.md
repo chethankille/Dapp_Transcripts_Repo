@@ -2,19 +2,19 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.2.4.
 
-##Ganache
+## Ganache
 Run Ganache using 'npm init' in th ganache directory on your machine. 
 
 ## Development server
 Run ng serve --open in 'transcripts' subdirectory. 
 Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-##Metamask
+## Metamask
 Intsall Metamask plugin from Chrome Web Store and login using private key from Ganache. Select Ropsten Network and get free ether from metamask faucet. This is needed to deploy the smart contract on ropsten.
 
-##Smart Contracts
-
-Run truffle migrate --reset --network ropsten in the 'Dapp_Transcripts_Repo' to migrate the smart contracts to Ropsten Test Net.
+## Smart Contracts
+In the Colleges.sol constructor() two colleges and one admin account are added. You must update the admin address to any address on your Metamask plugin since you need to have access to atleast one admin account to operate the Dapp as an admin. Similarly for Colleges add address from your Ganache GUI.  
+Run truffle migrate --reset --network ropsten in the to migrate the smart contracts to Ropsten Test Net.
 Copy the address for Colleges.sol and update in the 'transcripts' subdirectory wherever necessary.
 
 ## Code scaffolding
